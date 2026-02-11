@@ -1,3 +1,11 @@
+/**
+ * Cart controller.
+ * Manages the shopping cart for authenticated customers.
+ * Each user has exactly one cart (created at registration).
+ * Supports adding items, updating quantities (auto-increments duplicates),
+ * removing individual items, and clearing the entire cart.
+ * Validates stock availability before adding or updating items.
+ */
 const { Cart, CartItem, Product } = require('../models');
 
 /**

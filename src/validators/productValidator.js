@@ -1,5 +1,11 @@
+/**
+ * Product request validators.
+ * Validates product creation, update, and stock update requests.
+ * All fields are required for creation; optional for updates (partial updates supported).
+ */
 const { body } = require('express-validator');
 
+// Validates new product creation - all core fields required
 const createProductValidator = [
   body('name')
     .trim()
@@ -24,6 +30,7 @@ const createProductValidator = [
     .isURL().withMessage('Image URL must be a valid URL'),
 ];
 
+// Validates product update - all fields optional (supports partial updates)
 const updateProductValidator = [
   body('name')
     .optional()
@@ -48,6 +55,7 @@ const updateProductValidator = [
     .isURL().withMessage('Image URL must be a valid URL'),
 ];
 
+// Validates stock-only update
 const updateStockValidator = [
   body('stock')
     .notEmpty().withMessage('Stock value is required')

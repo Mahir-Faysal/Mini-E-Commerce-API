@@ -1,3 +1,8 @@
+/**
+ * Authentication routes.
+ * Handles user registration, login, and profile retrieval.
+ * Register and login are public; profile requires a valid JWT token.
+ */
 const express = require('express');
 const router = express.Router();
 const { register, login, getProfile } = require('../controllers/authController');

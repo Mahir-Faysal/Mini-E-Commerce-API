@@ -1,6 +1,9 @@
 /**
  * Global error handling middleware.
- * Catches all errors thrown in route handlers and middleware.
+ * Catches all errors thrown or passed via next(error) in route handlers.
+ * Provides specific handling for Sequelize errors (validation, unique
+ * constraint, database) and falls back to a generic 500 response.
+ * In development mode, includes the error stack trace for debugging.
  */
 const errorHandler = (err, req, res, next) => {
   console.error('Error:', err);

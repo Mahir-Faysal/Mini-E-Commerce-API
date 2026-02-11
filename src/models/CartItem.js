@@ -1,3 +1,9 @@
+/**
+ * CartItem model.
+ * Represents a single product entry within a user's cart.
+ * Links a cart to a product with a specified quantity.
+ * Quantity must be at least 1; stock validation happens in the controller.
+ */
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 

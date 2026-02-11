@@ -2,8 +2,10 @@ const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 
 /**
- * Middleware to authenticate requests via JWT Bearer token.
- * Attaches the full user object to req.user on success.
+ * Authentication middleware.
+ * Verifies the JWT Bearer token from the Authorization header.
+ * On success, attaches the full user object to req.user so
+ * downstream handlers can access the authenticated user's data.
  */
 const authenticate = async (req, res, next) => {
   try {
@@ -16,10 +18,13 @@ const authenticate = async (req, res, next) => {
       });
     }
 
+    // Extract the token from "Bearer <token>" format
     const token = authHeader.split(' ')[1];
 
+    // Verify token signature and decode the payload (contains user id, email, role)
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+    // Fetch the full user record from DB to ensure the user still exists
     const user = await User.findByPk(decoded.id);
     if (!user) {
       return res.status(401).json({

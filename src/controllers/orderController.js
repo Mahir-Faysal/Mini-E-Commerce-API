@@ -1,3 +1,12 @@
+/**
+ * Order controller.
+ * Handles the complete order lifecycle:
+ *   - Place order (converts cart to order with database transaction + row-level locking)
+ *   - View orders (role-based: customers see own, admins see all)
+ *   - Cancel order (with stock restoration and fraud prevention)
+ *   - Update order status (admin only, enforces valid state transitions)
+ *   - Simulate payment (90% success rate for demo purposes)
+ */
 const { sequelize, Cart, CartItem, Order, OrderItem, Product, User } = require('../models');
 const { Op } = require('sequelize');
 
@@ -39,7 +48,8 @@ const placeOrder = async (req, res, next) => {
     const orderItemsData = [];
 
     for (const item of cart.items) {
-      // Lock the product row to prevent race conditions
+      // Lock the product row (SELECT ... FOR UPDATE) to prevent race conditions
+      // where two users might try to buy the last item simultaneously
       const product = await Product.findByPk(item.productId, {
         lock: t.LOCK.UPDATE,
         transaction: t,
@@ -245,7 +255,9 @@ const cancelOrder = async (req, res, next) => {
     const isAdmin = req.user.role === 'admin';
     const maxCancellations = parseInt(process.env.MAX_CANCELLATIONS_PER_DAY) || 3;
 
-    // Fraud prevention: check daily cancellation limit (only applies to customers, not admins)
+    // Fraud prevention: limit how many orders a customer can cancel per day.
+    // This prevents abuse (e.g., repeatedly ordering to reserve stock then cancelling).
+    // Admins are exempt from this limit.
     const user = await User.findByPk(userId, { transaction: t });
     const today = new Date().toISOString().split('T')[0];
 

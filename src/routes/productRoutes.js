@@ -1,3 +1,9 @@
+/**
+ * Product routes.
+ * GET endpoints are public (anyone can browse products).
+ * POST, PUT, DELETE, PATCH endpoints are restricted to admin users.
+ * Includes search, filtering, pagination, and sorting capabilities.
+ */
 const express = require('express');
 const router = express.Router();
 const {

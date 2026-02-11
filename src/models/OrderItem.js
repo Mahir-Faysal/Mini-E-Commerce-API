@@ -1,3 +1,10 @@
+/**
+ * OrderItem model.
+ * Represents a single product entry within an order.
+ * The priceAtPurchase field captures the product's price at the time of
+ * order placement, ensuring order totals remain accurate even if the
+ * product price is updated later.
+ */
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 

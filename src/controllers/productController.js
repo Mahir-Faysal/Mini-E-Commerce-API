@@ -1,3 +1,9 @@
+/**
+ * Product controller.
+ * Provides full CRUD operations for products plus stock management.
+ * Includes search (iLike), price filtering, pagination, and sorting.
+ * Create/Update/Delete operations are restricted to admin users via route middleware.
+ */
 const { Product } = require('../models');
 const { Op } = require('sequelize');
 
@@ -45,8 +51,10 @@ const getAllProducts = async (req, res, next) => {
 
     const offset = (parseInt(page) - 1) * parseInt(limit);
 
-    // Build filter conditions
+    // Build dynamic WHERE conditions based on query parameters
     const where = {};
+
+    // Case-insensitive search across product name and description
     if (search) {
       where[Op.or] = [
         { name: { [Op.iLike]: `%${search}%` } },

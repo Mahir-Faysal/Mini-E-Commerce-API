@@ -1,3 +1,8 @@
+/**
+ * Model registry and association definitions.
+ * Imports all Sequelize models, defines relationships between them,
+ * and exports everything for use throughout the application.
+ */
 const sequelize = require('../config/database');
 const User = require('./User');
 const Product = require('./Product');

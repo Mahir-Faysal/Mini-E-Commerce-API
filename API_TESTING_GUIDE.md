@@ -1,4 +1,4 @@
-# 🧪 API Testing Guide - Mini E-Commerce API
+# API Testing Guide - Mini E-Commerce API
 
 ## What is an API?
 
@@ -11,10 +11,10 @@ Since we don't have a frontend, we use **tools** to play the role of the custome
 
 ---
 
-## 🔧 Tool: Thunder Client (already installed in your VS Code!)
+## Tool: Thunder Client (already installed in your VS Code!)
 
 1. Look at the **left sidebar** in VS Code
-2. Click the **⚡ thunder bolt icon**
+2. Click the **thunder bolt icon**
 3. Click **"New Request"**
 4. You'll see a screen where you can:
    - Choose a **method** (GET, POST, PUT, DELETE)
@@ -24,7 +24,7 @@ Since we don't have a frontend, we use **tools** to play the role of the custome
 
 ---
 
-## 🚀 Before Testing: Start the Server!
+## Before Testing: Start the Server!
 
 Open a terminal in VS Code (`Ctrl + ~`) and run:
 ```
@@ -35,7 +35,7 @@ Keep this terminal **open** (don't close it).
 
 ---
 
-## 📝 Step-by-Step API Testing Walkthrough
+## Step-by-Step API Testing Walkthrough
 
 ### ──────────────────────────────────
 ### STEP 1: Register a New User
@@ -45,7 +45,7 @@ This is like **signing up** on a website.
 
 - **Method:** `POST`
 - **URL:** `http://localhost:3000/api/auth/register`
-- **Go to "Body" tab → select "JSON" → paste this:**
+- **Go to "Body" tab -> select "JSON" -> paste this:**
 
 ```json
 {
@@ -57,7 +57,7 @@ This is like **signing up** on a website.
 
 - Click **Send**
 
-✅ **Expected Response:**
+**Expected Response:**
 ```json
 {
   "success": true,
@@ -74,7 +74,7 @@ This is like **signing up** on a website.
 }
 ```
 
-🔑 **IMPORTANT:** Copy the `token` value! You'll need it for all the next steps.
+**IMPORTANT:** Copy the `token` value! You'll need it for all the next steps.
 
 ---
 
@@ -95,9 +95,9 @@ This is like **logging in** to your account. You can also use the pre-made accou
 }
 ```
 
-✅ **Response gives you a `token`** — this is your "ID card" that proves who you are.
+**Response gives you a `token`** — this is your "ID card" that proves who you are.
 
-💡 **What is a Token?**
+**What is a Token?**
 When you log in to Instagram, it remembers you so you don't log in every time.
 A token does the same thing — it's proof that you're logged in.
 
@@ -132,7 +132,7 @@ This is like **browsing a store** — anyone can look at products.
 - **No body needed, no token needed**
 - Click **Send**
 
-✅ You'll see all 8 products we seeded earlier!
+You'll see all 8 products we seeded earlier!
 
 **Try these variations:**
 
@@ -142,7 +142,7 @@ This is like **browsing a store** — anyone can look at products.
 | Only 3 per page | `http://localhost:3000/api/products?limit=3` |
 | Search for "keyboard" | `http://localhost:3000/api/products?search=keyboard` |
 | Under $30 | `http://localhost:3000/api/products?maxPrice=30` |
-| Sort by price (low→high) | `http://localhost:3000/api/products?sortBy=price&order=ASC` |
+| Sort by price (low to high) | `http://localhost:3000/api/products?sortBy=price&order=ASC` |
 
 ---
 
@@ -158,7 +158,7 @@ This gets product with ID 1.
 ---
 
 ### ──────────────────────────────────
-### STEP 6: Add Items to Cart 🛒
+### STEP 6: Add Items to Cart
 ### ──────────────────────────────────
 
 You need to be **logged in as a customer** for this.
@@ -175,7 +175,7 @@ You need to be **logged in as a customer** for this.
 }
 ```
 
-✅ This adds 2 units of product #1 to your cart.
+This adds 2 units of product #1 to your cart.
 
 Try adding more products:
 ```json
@@ -195,12 +195,12 @@ Try adding more products:
 - **URL:** `http://localhost:3000/api/cart`
 - **Headers:** `Authorization: Bearer <your-customer-token>`
 
-✅ You'll see all items in your cart with product details!
+You'll see all items in your cart with product details!
 
 ---
 
 ### ──────────────────────────────────
-### STEP 8: Place an Order 📦
+### STEP 8: Place an Order
 ### ──────────────────────────────────
 
 This converts your cart into an order (like clicking "Checkout").
@@ -216,18 +216,18 @@ This converts your cart into an order (like clicking "Checkout").
 }
 ```
 
-✅ Response shows your order with:
+Response shows your order with:
 - Total amount (auto-calculated!)
 - Status: "pending"
 - Payment status: "unpaid"
 - Each item with price snapshot
 
-🎯 **Behind the scenes:** The API checks stock, calculates totals, deducts stock, and clears your cart — all in one transaction!
+**Behind the scenes:** The API checks stock, calculates totals, deducts stock, and clears your cart — all in one transaction!
 
 ---
 
 ### ──────────────────────────────────
-### STEP 9: Pay for Your Order 💳
+### STEP 9: Pay for Your Order
 ### ──────────────────────────────────
 
 - **Method:** `POST`
@@ -243,7 +243,7 @@ This converts your cart into an order (like clicking "Checkout").
 
 Other payment methods: `debit_card`, `mobile_banking`, `cash_on_delivery`
 
-⚠️ **Note:** Payment has a simulated 90% success rate — it might "fail" randomly!
+**Note:** Payment has a simulated 90% success rate — it might "fail" randomly!
 
 ---
 
@@ -258,19 +258,19 @@ Other payment methods: `debit_card`, `mobile_banking`, `cash_on_delivery`
 ---
 
 ### ──────────────────────────────────
-### STEP 11: Cancel an Order ❌
+### STEP 11: Cancel an Order
 ### ──────────────────────────────────
 
 - **Method:** `PUT`
 - **URL:** `http://localhost:3000/api/orders/1/cancel`
 - **Headers:** `Authorization: Bearer <your-customer-token>`
 
-⚠️ **Fraud Prevention:** You can only cancel 3 orders per day!
+**Fraud Prevention:** You can only cancel 3 orders per day!
 
 ---
 
 ### ──────────────────────────────────
-### STEP 12: Admin Features 👑
+### STEP 12: Admin Features
 ### ──────────────────────────────────
 
 Login as admin first:
@@ -305,24 +305,24 @@ Login as admin first:
 }
 ```
 
-Valid status flow: `pending` → `confirmed` → `shipped` → `delivered`
+Valid status flow: `pending` --> `confirmed` --> `shipped` --> `delivered`
 
 ---
 
-## 🧠 Understanding the Assignment
+## Understanding the Assignment
 
 Here's what the project demonstrates:
 
 ### 1. **Authentication & Authorization**
-- Users register and login → receive a JWT token
+- Users register and login, then receive a JWT token
 - Token must be sent with every protected request
 - **Roles:** Admin can manage products/orders, Customer can only shop
 
 ### 2. **Product Management (CRUD)**
-- **C**reate → `POST /api/products` (admin)
-- **R**ead → `GET /api/products` (everyone)
-- **U**pdate → `PUT /api/products/:id` (admin)
-- **D**elete → `DELETE /api/products/:id` (admin)
+- **C**reate - `POST /api/products` (admin)
+- **R**ead - `GET /api/products` (everyone)
+- **U**pdate - `PUT /api/products/:id` (admin)
+- **D**elete - `DELETE /api/products/:id` (admin)
 
 ### 3. **Cart System**
 - Each customer has ONE cart
@@ -335,53 +335,53 @@ Here's what the project demonstrates:
 - Price is "snapshotted" at purchase time (if price changes later, your order keeps the old price)
 
 ### 5. **Bonus Features**
-- 🔍 **Search & Filter** — search products, filter by price, paginate
-- 🛡️ **Fraud Prevention** — max 3 cancellations per day per user
-- 💳 **Payment Simulation** — simulated payment with 90% success rate
-- 🔒 **Stock Locking** — row-level database locks prevent overselling
+- **Search & Filter** — search products, filter by price, paginate
+- **Fraud Prevention** — max 3 cancellations per day per user
+- **Payment Simulation** — simulated payment with 90% success rate
+- **Stock Locking** — row-level database locks prevent overselling
 
 ---
 
-## 📌 Quick Reference: All Endpoints
+## Quick Reference: All Endpoints
 
 | Method | URL | Auth | What it does |
 |--------|-----|------|-------------|
-| `POST` | `/api/auth/register` | ❌ | Sign up |
-| `POST` | `/api/auth/login` | ❌ | Log in, get token |
-| `GET` | `/api/auth/profile` | 🔒 | View your profile |
-| `GET` | `/api/products` | ❌ | List all products |
-| `GET` | `/api/products/:id` | ❌ | View one product |
-| `POST` | `/api/products` | 🔒👑 | Create product (admin) |
-| `PUT` | `/api/products/:id` | 🔒👑 | Update product (admin) |
-| `DELETE` | `/api/products/:id` | 🔒👑 | Delete product (admin) |
-| `PATCH` | `/api/products/:id/stock` | 🔒👑 | Update stock (admin) |
-| `GET` | `/api/cart` | 🔒🛒 | View your cart |
-| `POST` | `/api/cart/items` | 🔒🛒 | Add to cart |
-| `PUT` | `/api/cart/items/:id` | 🔒🛒 | Change quantity |
-| `DELETE` | `/api/cart/items/:id` | 🔒🛒 | Remove from cart |
-| `DELETE` | `/api/cart` | 🔒🛒 | Clear entire cart |
-| `POST` | `/api/orders` | 🔒🛒 | Place order (checkout) |
-| `GET` | `/api/orders` | 🔒 | View your orders |
-| `GET` | `/api/orders/:id` | 🔒 | View one order |
-| `PUT` | `/api/orders/:id/cancel` | 🔒 | Cancel order |
-| `PUT` | `/api/orders/:id/status` | 🔒👑 | Update status (admin) |
-| `POST` | `/api/orders/:id/pay` | 🔒 | Simulate payment |
+| `POST` | `/api/auth/register` | No | Sign up |
+| `POST` | `/api/auth/login` | No | Log in, get token |
+| `GET` | `/api/auth/profile` | Yes | View your profile |
+| `GET` | `/api/products` | No | List all products |
+| `GET` | `/api/products/:id` | No | View one product |
+| `POST` | `/api/products` | Admin | Create product (admin) |
+| `PUT` | `/api/products/:id` | Admin | Update product (admin) |
+| `DELETE` | `/api/products/:id` | Admin | Delete product (admin) |
+| `PATCH` | `/api/products/:id/stock` | Admin | Update stock (admin) |
+| `GET` | `/api/cart` | Customer | View your cart |
+| `POST` | `/api/cart/items` | Customer | Add to cart |
+| `PUT` | `/api/cart/items/:id` | Customer | Change quantity |
+| `DELETE` | `/api/cart/items/:id` | Customer | Remove from cart |
+| `DELETE` | `/api/cart` | Customer | Clear entire cart |
+| `POST` | `/api/orders` | Customer | Place order (checkout) |
+| `GET` | `/api/orders` | Yes | View your orders |
+| `GET` | `/api/orders/:id` | Yes | View one order |
+| `PUT` | `/api/orders/:id/cancel` | Yes | Cancel order |
+| `PUT` | `/api/orders/:id/status` | Admin | Update status (admin) |
+| `POST` | `/api/orders/:id/pay` | Yes | Simulate payment |
 
-🔒 = Login required | 👑 = Admin only | 🛒 = Customer only
+**Legend:** Yes = Login required | Admin = Admin only | Customer = Customer only | No = Public
 
 ---
 
-## 🎯 Suggested Testing Flow
+## Suggested Testing Flow
 
 Follow this order to test the full "shopping experience":
 
-1. ✅ **Login** as customer → save the token
-2. ✅ **Browse products** → see what's available
-3. ✅ **Add 2-3 items** to cart
-4. ✅ **View cart** → see your items
-5. ✅ **Place order** → checkout!
-6. ✅ **Pay for order** → simulate payment
-7. ✅ **View orders** → check status
-8. ✅ **Login as admin** → save admin token
-9. ✅ **Update order status** → confirmed → shipped → delivered
-10. ✅ **Create a new product** as admin
+1. **Login** as customer - save the token
+2. **Browse products** - see what's available
+3. **Add 2-3 items** to cart
+4. **View cart** - see your items
+5. **Place order** - checkout!
+6. **Pay for order** - simulate payment
+7. **View orders** - check status
+8. **Login as admin** - save admin token
+9. **Update order status** - confirmed then shipped then delivered
+10. **Create a new product** as admin

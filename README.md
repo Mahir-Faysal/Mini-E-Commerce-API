@@ -1,12 +1,12 @@
-# Mini E-Commerce API 🛒
+# Mini E-Commerce API
 
 A backend RESTful API for a mini e-commerce platform built with **Node.js**, **Express**, and **PostgreSQL**. Features JWT authentication, role-based access control, product management, cart operations, order processing with database transactions, payment simulation, and fraud prevention.
 
-> **🌐 Live API:** [https://mini-e-commerce-api.onrender.com](https://mini-e-commerce-api.onrender.com)
+> **Live API:** [https://mini-e-commerce-api.onrender.com](https://mini-e-commerce-api.onrender.com)
 
 ---
 
-## 📦 Tech Stack
+## Tech Stack
 
 | Technology | Purpose |
 |---|---|
@@ -23,7 +23,7 @@ A backend RESTful API for a mini e-commerce platform built with **Node.js**, **E
 
 ---
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
 ### Prerequisites
 
@@ -102,7 +102,7 @@ Server runs at: **http://localhost:3000**
 
 ---
 
-## 🗄️ Database Schema / ER Diagram
+## Database Schema / ER Diagram
 
 ### Entity Relationship Diagram
 
@@ -174,26 +174,26 @@ All foreign keys use `CASCADE` on delete.
 
 ---
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### Authentication (`/api/auth`)
 
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
-| `POST` | `/api/auth/register` | ❌ Public | Register a new user |
-| `POST` | `/api/auth/login` | ❌ Public | Login and receive JWT token |
-| `GET` | `/api/auth/profile` | 🔒 Any | Get current user profile |
+| `POST` | `/api/auth/register` | Public | Register a new user |
+| `POST` | `/api/auth/login` | Public | Login and receive JWT token |
+| `GET` | `/api/auth/profile` | Protected | Get current user profile |
 
 ### Products (`/api/products`)
 
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
-| `GET` | `/api/products` | ❌ Public | List products (search, filter, paginate, sort) |
-| `GET` | `/api/products/:id` | ❌ Public | Get single product by ID |
-| `POST` | `/api/products` | 🔒 Admin | Create a new product |
-| `PUT` | `/api/products/:id` | 🔒 Admin | Update product details |
-| `DELETE` | `/api/products/:id` | 🔒 Admin | Delete a product |
-| `PATCH` | `/api/products/:id/stock` | 🔒 Admin | Update product stock |
+| `GET` | `/api/products` | Public | List products (search, filter, paginate, sort) |
+| `GET` | `/api/products/:id` | Public | Get single product by ID |
+| `POST` | `/api/products` | Admin | Create a new product |
+| `PUT` | `/api/products/:id` | Admin | Update product details |
+| `DELETE` | `/api/products/:id` | Admin | Delete a product |
+| `PATCH` | `/api/products/:id/stock` | Admin | Update product stock |
 
 **Query Parameters for `GET /api/products`:**
 
@@ -211,26 +211,26 @@ All foreign keys use `CASCADE` on delete.
 
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
-| `GET` | `/api/cart` | 🔒 Customer | View cart with all items and total |
-| `POST` | `/api/cart/items` | 🔒 Customer | Add product to cart |
-| `PUT` | `/api/cart/items/:itemId` | 🔒 Customer | Update item quantity |
-| `DELETE` | `/api/cart/items/:itemId` | 🔒 Customer | Remove item from cart |
-| `DELETE` | `/api/cart` | 🔒 Customer | Clear entire cart |
+| `GET` | `/api/cart` | Customer | View cart with all items and total |
+| `POST` | `/api/cart/items` | Customer | Add product to cart |
+| `PUT` | `/api/cart/items/:itemId` | Customer | Update item quantity |
+| `DELETE` | `/api/cart/items/:itemId` | Customer | Remove item from cart |
+| `DELETE` | `/api/cart` | Customer | Clear entire cart |
 
 ### Orders (`/api/orders`)
 
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
-| `POST` | `/api/orders` | 🔒 Customer | Place order from cart (checkout) |
-| `GET` | `/api/orders` | 🔒 Any | List orders (customers: own, admin: all) |
-| `GET` | `/api/orders/:id` | 🔒 Any | Get order details |
-| `PUT` | `/api/orders/:id/cancel` | 🔒 Any | Cancel order (with fraud prevention) |
-| `PATCH` | `/api/orders/:id/status` | 🔒 Admin | Update order status |
-| `POST` | `/api/orders/:id/pay` | 🔒 Any | Simulate payment |
+| `POST` | `/api/orders` | Customer | Place order from cart (checkout) |
+| `GET` | `/api/orders` | Any | List orders (customers: own, admin: all) |
+| `GET` | `/api/orders/:id` | Any | Get order details |
+| `PUT` | `/api/orders/:id/cancel` | Any | Cancel order (with fraud prevention) |
+| `PATCH` | `/api/orders/:id/status` | Admin | Update order status |
+| `POST` | `/api/orders/:id/pay` | Any | Simulate payment |
 
 ---
 
-## 🏗️ Key Architectural Decisions
+## Key Architectural Decisions
 
 ### 1. Database Transactions with Row-Level Locking
 Order placement wraps **all operations** (stock validation, order creation, stock deduction, cart clearing) in a single Sequelize transaction. Uses `SELECT ... FOR UPDATE` (row-level locking) to prevent race conditions where two users might purchase the last item simultaneously.
@@ -274,7 +274,7 @@ Each layer has a single responsibility, keeping the code clean, maintainable, an
 
 ---
 
-## 📌 Assumptions Made
+## Assumptions Made
 
 1. **One Cart Per User** — Each user has exactly one cart, automatically created at registration (1:1 relationship).
 2. **Public Product Browsing** — Product listing and search do not require authentication (like any real e-commerce store).
@@ -287,7 +287,7 @@ Each layer has a single responsibility, keeping the code clean, maintainable, an
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Mini-E-Commerce-API/
@@ -334,7 +334,7 @@ Mini-E-Commerce-API/
 
 ---
 
-## ⚙️ Available Scripts
+## Available Scripts
 
 | Command | Description |
 |---------|-------------|
@@ -345,7 +345,7 @@ Mini-E-Commerce-API/
 
 ---
 
-## 🔒 HTTP Status Codes Used
+## HTTP Status Codes Used
 
 | Code | Meaning | Usage |
 |------|---------|-------|
@@ -362,7 +362,7 @@ Mini-E-Commerce-API/
 
 ---
 
-## 👤 Author
+## Author
 
 **Mahir Faysal**
 - GitHub: [@Mahir-Faysal](https://github.com/Mahir-Faysal)

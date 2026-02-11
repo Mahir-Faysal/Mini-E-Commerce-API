@@ -1,3 +1,9 @@
+/**
+ * Product model.
+ * Represents items available for purchase in the store.
+ * Price is stored as DECIMAL(10,2) for accurate currency handling.
+ * Stock is tracked and validated (cannot go negative).
+ */
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 

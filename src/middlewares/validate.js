@@ -1,8 +1,11 @@
 const { validationResult } = require('express-validator');
 
 /**
- * Middleware that checks for validation errors from express-validator
- * and returns 400 with the error details if any exist.
+ * Validation middleware.
+ * Runs after express-validator checks in the route chain.
+ * If any validation errors exist, returns a 400 response with
+ * structured error details (field name + message for each error).
+ * If validation passes, calls next() to continue to the controller.
  */
 const validate = (req, res, next) => {
   const errors = validationResult(req);

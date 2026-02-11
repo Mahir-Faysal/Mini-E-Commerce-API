@@ -1,5 +1,11 @@
+/**
+ * Authentication request validators.
+ * Uses express-validator to sanitize and validate registration and login inputs.
+ * These run before the validate middleware, which checks for errors.
+ */
 const { body } = require('express-validator');
 
+// Validates registration fields: name, email, password, and optional role
 const registerValidator = [
   body('name')
     .trim()
@@ -21,6 +27,7 @@ const registerValidator = [
     .isIn(['admin', 'customer']).withMessage('Role must be either admin or customer'),
 ];
 
+// Validates login fields: email and password (both required)
 const loginValidator = [
   body('email')
     .trim()

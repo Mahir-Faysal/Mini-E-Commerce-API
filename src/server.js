@@ -1,8 +1,15 @@
+/**
+ * Server entry point.
+ * Connects to the PostgreSQL database, syncs Sequelize models,
+ * and starts the Express HTTP server.
+ */
 const path = require('path');
+// Load environment variables from .env file (resolved relative to this file)
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const app = require('./app');
 const { sequelize } = require('./models');
 
+// Use the PORT from environment variables, default to 3000 for local development
 const PORT = process.env.PORT || 3000;
 
 const startServer = async () => {

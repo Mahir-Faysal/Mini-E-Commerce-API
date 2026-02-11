@@ -2,10 +2,12 @@
  * Database seed script.
  * Run with: npm run seed
  *
- * Creates:
- * - 1 Admin user
- * - 1 Customer user
- * - Sample products
+ * Populates the database with initial data for testing:
+ * - 1 Admin user (with admin privileges)
+ * - 1 Customer user (with a cart)
+ * - 8 Sample products across different categories
+ *
+ * Uses findOrCreate to safely re-run without duplicating data.
  */
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
@@ -14,7 +16,7 @@ const { sequelize, User, Product, Cart } = require('../models');
 const seedData = async () => {
   try {
     await sequelize.authenticate();
-    console.log('✅ Database connection established.');
+    console.log('[OK] Database connection established.');
 
     // Sync tables
     await sequelize.sync({ alter: true });
@@ -32,9 +34,9 @@ const seedData = async () => {
     });
 
     if (adminCreated) {
-      console.log('👤 Admin user created: admin@ecommerce.com / admin123');
+      console.log('[SEED] Admin user created: admin@ecommerce.com / admin123');
     } else {
-      console.log('👤 Admin user already exists.');
+      console.log('[SEED] Admin user already exists.');
     }
 
     const [customerUser, customerCreated] = await User.findOrCreate({
@@ -48,11 +50,12 @@ const seedData = async () => {
     });
 
     if (customerCreated) {
-      console.log('👤 Customer user created: customer@ecommerce.com / customer123');
-      // Create cart for customer
+      console.log('[SEED] Customer user created: customer@ecommerce.com / customer123');
+
+      // Automatically create a cart for the new customer
       await Cart.findOrCreate({ where: { userId: customerUser.id } });
     } else {
-      console.log('👤 Customer user already exists.');
+      console.log('[SEED] Customer user already exists.');
     }
 
     // Create cart for admin too (in case they want to test)
@@ -128,9 +131,9 @@ const seedData = async () => {
       if (created) productsCreated++;
     }
 
-    console.log(`📦 ${productsCreated} new products seeded (${products.length - productsCreated} already existed).`);
+    console.log(`[SEED] ${productsCreated} new products seeded (${products.length - productsCreated} already existed).`);
 
-    console.log('\n✅ Seeding complete!');
+    console.log('\n[OK] Seeding complete!');
     console.log('='.repeat(50));
     console.log('Test Credentials:');
     console.log('  Admin:    admin@ecommerce.com / admin123');
@@ -139,7 +142,7 @@ const seedData = async () => {
 
     process.exit(0);
   } catch (error) {
-    console.error('❌ Seeding failed:', error.message);
+    console.error('[ERROR] Seeding failed:', error.message);
     console.error(error);
     process.exit(1);
   }

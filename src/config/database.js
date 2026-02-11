@@ -1,10 +1,17 @@
+/**
+ * Sequelize database connection configuration.
+ * Supports two modes:
+ *   1. DATABASE_URL (single connection string) - used by cloud providers like Render
+ *   2. Individual DB_* variables - used for local development
+ */
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 const { Sequelize } = require('sequelize');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-// Support DATABASE_URL (used by Render, Railway, etc.) or individual vars (localhost)
+// If DATABASE_URL is set (cloud deployment), use it with SSL enabled.
+// Otherwise, construct the connection from individual DB_* environment variables.
 const sequelize = process.env.DATABASE_URL
   ? new Sequelize(process.env.DATABASE_URL, {
       dialect: 'postgres',

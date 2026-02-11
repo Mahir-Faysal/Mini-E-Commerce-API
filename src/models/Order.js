@@ -1,3 +1,10 @@
+/**
+ * Order model.
+ * Represents a customer's order created from their cart at checkout.
+ * Tracks order status (pending -> confirmed -> shipped -> delivered | cancelled),
+ * payment status (unpaid, paid, refunded), and shipping address.
+ * Total amount is calculated server-side and never trusted from the client.
+ */
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 

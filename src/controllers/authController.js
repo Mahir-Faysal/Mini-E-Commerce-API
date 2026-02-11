@@ -1,3 +1,8 @@
+/**
+ * Authentication controller.
+ * Handles user registration (with atomic cart creation), login with
+ * JWT token generation, and authenticated profile retrieval.
+ */
 const jwt = require('jsonwebtoken');
 const { sequelize, User, Cart } = require('../models');
 
@@ -17,6 +22,8 @@ const generateToken = (user) => {
  * Register a new user and create their cart.
  */
 const register = async (req, res, next) => {
+  // Start a transaction to ensure user + cart creation is atomic.
+  // If either fails, both are rolled back to prevent orphan records.
   const t = await sequelize.transaction();
 
   try {

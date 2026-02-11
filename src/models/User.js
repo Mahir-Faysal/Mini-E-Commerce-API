@@ -1,3 +1,10 @@
+/**
+ * User model.
+ * Represents registered users with two roles: 'admin' and 'customer'.
+ * Passwords are automatically hashed using bcrypt before save.
+ * Includes cancellation tracking fields for fraud prevention.
+ * The toJSON method strips the password from API responses.
+ */
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const bcrypt = require('bcryptjs');

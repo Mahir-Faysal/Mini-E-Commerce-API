@@ -1,3 +1,9 @@
+/**
+ * Order routes.
+ * All order operations require authentication.
+ * Customers can place orders, view their own orders, cancel, and pay.
+ * Admins can view all orders, update status, cancel any order, and process payments.
+ */
 const express = require('express');
 const router = express.Router();
 const {

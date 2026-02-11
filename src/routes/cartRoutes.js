@@ -1,3 +1,8 @@
+/**
+ * Cart routes.
+ * All cart operations require authentication and the 'customer' role.
+ * Supports viewing, adding, updating, removing items, and clearing the cart.
+ */
 const express = require('express');
 const router = express.Router();
 const {
