@@ -2,7 +2,7 @@
 
 A backend RESTful API for a mini e-commerce platform built with **Node.js**, **Express**, and **PostgreSQL**. Features JWT authentication, role-based access control, product management, cart operations, order processing with database transactions, payment simulation, and fraud prevention.
 
-> **Live API:** _Not deployed yet (localhost only)_
+> **🌐 Live API:** [https://mini-e-commerce-api.onrender.com](https://mini-e-commerce-api.onrender.com)
 
 ---
 
