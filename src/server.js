@@ -12,7 +12,13 @@ const startServer = async () => {
     console.log(' Database connection established successfully.');
 
     // Sync models (creates tables if they don't exist)
-    await sequelize.sync({ alter: process.env.NODE_ENV === 'development' });
+    // In production: sync() only creates missing tables (safe)
+    // In development: alter:true updates existing tables to match models
+    if (process.env.NODE_ENV === 'production') {
+      await sequelize.sync();
+    } else {
+      await sequelize.sync({ alter: true });
+    }
     console.log(' Database models synchronized.');
 
     // Start Express server
