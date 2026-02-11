@@ -280,7 +280,7 @@ Each layer has a single responsibility, keeping the code clean, maintainable, an
 2. **Public Product Browsing** — Product listing and search do not require authentication (like any real e-commerce store).
 3. **Admin Registration** — Admin role can be assigned during registration for demo/testing purposes. In production, this would be restricted to a super-admin or seed-only.
 4. **Payment Simulation** — Payment has a 90% simulated success rate. Failed payments return `402` and can be retried. Supported methods: `credit_card`, `debit_card`, `mobile_banking`, `cash_on_delivery`, `paypal`, `bank_transfer`.
-5. **Stock Deduction Timing** — Stock is deducted only after a successful order placement and restored on cancellation.
+5. **Stock Deduction Timing** — Stock is deducted only after successful order placement and restored on cancellation.
 6. **Cancellation Scope** — Only `pending` and `confirmed` orders can be cancelled. `shipped` and `delivered` orders cannot.
 7. **Soft Business Rules** — The daily cancellation limit is configurable via environment variables.
 8. **No Image Upload** — `imageUrl` is stored as a URL string (external hosting assumed).
